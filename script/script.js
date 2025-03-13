@@ -65,17 +65,35 @@ const displayPet = (pets) => {
     <figure>
       <img class="w-full" src="${pet.image}" />
     </figure>
-    <div class="">
+    <div>
       <h2 class="card-title">${pet["pet_name"]}</h2>
       <p>Breed: ${pet.breed}</p>
       <p>Birth: ${pet.date_of_birth}</p>
       <p>Gender: ${pet.gender}</p>
       <p>Price: ${pet.price}</p>
       <div class="card-actions justify-end">
-      <button class="btn btn-primary">Select</button>
+      <button class="btn select btn-primary">Select</button>
       </div>
     </div>
   </div>`;
     petsContainer.append(div);
   });
+  const selectedButton = document.getElementsByClassName("select");
+  for (const element of selectedButton) {
+    element.addEventListener("click", (event) => {
+      const title =
+        event.target.parentNode.parentNode.querySelector("h2").innerText;
+      console.log(title);
+      const cartItems = document.getElementById("cart-items");
+      let div = document.createElement("div");
+      div.classList.add("flex");
+      div.classList.add("gap-4");
+      div.classList.add("items-center");
+      div.innerHTML = `
+      <span>${title}</span>
+      <button class="btn">Delete</button>
+      `;
+      cartItems.append(div);
+    });
+  }
 };
