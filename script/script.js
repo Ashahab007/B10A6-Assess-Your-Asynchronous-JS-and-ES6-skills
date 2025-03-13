@@ -29,23 +29,30 @@ function showCategories(categories) {
 }
 
 const loadPets = async (category) => {
-  // document.getElementById("pets-container").style.display = "block";
   document.getElementById("status").style.display = "none";
+  document.getElementById("spinner").style.display = "block";
+  document.getElementById("pets-container").style.display = "none";
   const response = await fetch(
     `https://openapi.programming-hero.com/api/peddy/category/${category}`
   );
   const data = await response.json();
   // console.log(data.data[0].category);
   console.log(data.data);
-  displayPet(data.data);
+  if (data.data) {
+    document.getElementById("spinner").style.display = "none";
+    document.getElementById("pets-container").style.display = "block";
+    displayPet(data.data);
+  }
 };
 
+loadPets("Cat");
+
 const displayPet = (pets) => {
-  if (pets.length == 0) {
+  if (pets.length < 1) {
     console.log(pets.length);
-    // document.getElementById("pets-container").style.display = "none";
 
     document.getElementById("status").style.display = "block";
+    // document.getElementById("pets-container").style.display = "block";
   }
   const petsContainer = document.getElementById("pets-container");
   petsContainer.innerHTML = "";
