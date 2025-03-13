@@ -81,6 +81,7 @@ const displayPet = (pets) => {
   const selectedButton = document.getElementsByClassName("select");
   for (const element of selectedButton) {
     element.addEventListener("click", (event) => {
+      valueConvertedById("cart-count");
       const title =
         event.target.parentNode.parentNode.querySelector("h2").innerText;
       console.log(title);
@@ -97,3 +98,23 @@ const displayPet = (pets) => {
     });
   }
 };
+
+function valueConvertedById(id) {
+  let cartCount = document.getElementById(id).innerText;
+  let previousVal = parseInt(cartCount);
+  previousVal = previousVal + 1;
+  document.getElementById(id).innerText = previousVal;
+  // console.log(document.getElementById(id).innerText);
+
+  return previousVal;
+}
+
+// Trying to add cart number with items
+
+/* const itemCount = document.getElementById("item-count");
+itemCount.innerText = valueConvertedById();
+console.log(itemCount.innerText); */
+
+/* valueConvertedById("cart-count");
+valueConvertedById("cart-count");
+valueConvertedById("cart-count"); */
