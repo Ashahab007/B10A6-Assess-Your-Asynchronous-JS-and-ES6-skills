@@ -31,7 +31,8 @@ function showCategories(categories) {
 const loadPets = async (category) => {
   document.getElementById("status").style.display = "none";
   document.getElementById("spinner").style.display = "block";
-  document.getElementById("pets-container").style.display = "none";
+  document.getElementById("pets-container").classList.add("hidden");
+
   const response = await fetch(
     `https://openapi.programming-hero.com/api/peddy/category/${category}`
   );
@@ -40,7 +41,7 @@ const loadPets = async (category) => {
   console.log(data.data);
   if (data.data) {
     document.getElementById("spinner").style.display = "none";
-    document.getElementById("pets-container").style.display = "block";
+    document.getElementById("pets-container").classList.remove("hidden");
     displayPet(data.data);
   }
 };
@@ -52,7 +53,7 @@ const displayPet = (pets) => {
     console.log(pets.length);
 
     document.getElementById("status").style.display = "block";
-    // document.getElementById("pets-container").style.display = "block";
+    document.getElementById("pets-container").classList.add("hidden");
   }
   const petsContainer = document.getElementById("pets-container");
   petsContainer.innerHTML = "";
@@ -72,13 +73,13 @@ const displayPet = (pets) => {
       <p>Gender: ${pet.gender}</p>
       <p>Price: ${pet.price}</p>
       <div class="card-actions justify-end">
-      <button class="btn select btn-primary">Select</button>
+      <button class="btn selected btn-active btn-secondary">Select</button>
       </div>
     </div>
   </div>`;
     petsContainer.append(div);
   });
-  const selectedButton = document.getElementsByClassName("select");
+  const selectedButton = document.getElementsByClassName("selected");
   for (const element of selectedButton) {
     element.addEventListener("click", (event) => {
       valueConvertedById("cart-count");
@@ -92,7 +93,7 @@ const displayPet = (pets) => {
       div.classList.add("items-center");
       div.innerHTML = `
       <span>${title}</span>
-      <button class="btn">Delete</button>
+      <button class="btn btn-primary">Delete</button>
       `;
       cartItems.append(div);
     });
@@ -104,6 +105,7 @@ function valueConvertedById(id) {
   let previousVal = parseInt(cartCount);
   previousVal = previousVal + 1;
   document.getElementById(id).innerText = previousVal;
+  document.getElementById("item-count").innerText = `${previousVal} items`;
   // console.log(document.getElementById(id).innerText);
 
   return previousVal;
