@@ -103,10 +103,25 @@
           class="m-4 loading loading-spinner loading-xl inline-block mx-auto"
         ></span>
         <h1 id="status" class="text-red-500 text-center">No Data Found</h1>
+        <!-- Pets Container -->
         <div
           class="w-11/12 mx-auto grid grid-cols-3 gap-2 justify-center items-center"
           id="pets-container"
         ></div>
+      </section>
+      <!-- Modal -->
+      <section>
+        <dialog id="pet-details" class="modal">
+          <div class="modal-box">
+            <div id="details-container"></div>
+            <div class="modal-action">
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </section>
     </main>
 

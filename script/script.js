@@ -73,6 +73,7 @@ const displayPet = (pets) => {
       <p>Gender: ${pet.gender}</p>
       <p>Price: ${pet.price}</p>
       <div class="card-actions justify-end">
+      <button onclick=loadDetailsById("${pet.petId}") class="btn btn-accent">Details</button>
       <button class="btn selected btn-active btn-secondary">Select</button>
       </div>
     </div>
@@ -111,12 +112,25 @@ function valueConvertedById(id) {
   return previousVal;
 }
 
-// Trying to add cart number with items
+const loadDetailsById = async (petId) => {
+  const response = await fetch(
+    `https://openapi.programming-hero.com/api/peddy/pet/${petId}`
+  );
 
-/* const itemCount = document.getElementById("item-count");
-itemCount.innerText = valueConvertedById();
-console.log(itemCount.innerText); */
+  const data = await response.json();
+  displayDetailsInModal(data.petData);
+  // console.log(data.petData.pet_details);
+  console.log(data);
+};
 
-/* valueConvertedById("cart-count");
-valueConvertedById("cart-count");
-valueConvertedById("cart-count"); */
+const displayDetailsInModal = (detail) => {
+  document.getElementById("pet-details").showModal();
+  const detailsContainer = document.getElementById("details-container");
+
+  detailsContainer.innerHTML = `
+  <h3 class="text-lg font-bold">${detail.pet_name}</h3>
+  <p class="py-4">${detail.pet_details}</p>
+  `;
+
+  console.log(detail.pet_details);
+};
